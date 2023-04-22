@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: app-comisaria
+  webflux:
+    base-path: /app/comisaria/v1
+  main:
+    allow-bean-definition-overriding: true
+  data:
+    mongodb:
+      database: appcomisaria
+      uri: mongodb+srv://
+server:
+  port: 8089
