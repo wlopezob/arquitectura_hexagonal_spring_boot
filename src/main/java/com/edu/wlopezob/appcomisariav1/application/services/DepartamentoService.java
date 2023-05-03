@@ -6,10 +6,13 @@ import com.edu.wlopezob.appcomisariav1.application.ports.out.departamento.Depart
 import com.edu.wlopezob.appcomisariav1.application.ports.out.departamento.DepartamentoInsertAllPort;
 import com.edu.wlopezob.appcomisariav1.dominio.departamento.Departamento;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 
 import java.util.List;
 
+@Service
 @RequiredArgsConstructor
 public class DepartamentoService implements DepartamentoInsertAllUseCase {
   private final DepartamentoDeleteAllPort departamentoDeleteAllPort;
@@ -19,11 +22,10 @@ public class DepartamentoService implements DepartamentoInsertAllUseCase {
   @Override
   public Flux<Departamento> insertAllDepartamento() {
 
-    //delete departamentos
-    departamentoDeleteAllPort.deleteAllDepartamento();
-
-    //call api
-    return departamentoInsertAllPort
-      .insertAllDepartamento(departamentoGetAllCallApiPort.getAllDepartamento());
+    return departamentoDeleteAllPort.deleteAllDepartamento().flux()
+      .flatMap(t -> departamentoGetAllCallApiPort.getAllDepartamento()
+        .collectList()
+        .flatMapMany(t1 -> departamentoInsertAllPort.insertAllDepartamento(t1)));
   }
+
 }

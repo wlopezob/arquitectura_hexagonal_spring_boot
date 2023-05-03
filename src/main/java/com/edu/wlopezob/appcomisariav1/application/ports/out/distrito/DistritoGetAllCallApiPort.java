@@ -8,5 +8,5 @@ import java.util.List;
 
 @FunctionalInterface
 public interface DistritoGetAllCallApiPort {
-  Mono<List<Distrito>> getAllDistrito(String idProv);
+  Mono<List<Distrito>> getAllDistrito(String codProv);
 }

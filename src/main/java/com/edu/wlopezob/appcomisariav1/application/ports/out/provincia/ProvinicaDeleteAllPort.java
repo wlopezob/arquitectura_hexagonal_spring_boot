@@ -4,5 +4,5 @@ import reactor.core.publisher.Mono;
 
 @FunctionalInterface
 public interface ProvinicaDeleteAllPort {
-  Mono<Void> deleteAllProvincia();
+  Mono<Boolean> deleteAllProvincia();
 }

@@ -8,5 +8,5 @@ import java.util.List;
 
 @FunctionalInterface
 public interface ProvinciaInsertAllUseCase {
-  Flux<Provincia> insertAllProvincia(List<Provincia> provincias);
+  Flux<Provincia> insertAllProvincia();
 }

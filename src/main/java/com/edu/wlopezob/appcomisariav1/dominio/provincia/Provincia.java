@@ -12,5 +12,6 @@ public class Provincia {
   private String idDpto;
   private String idProv;
   private String provincia;
+  private String departamento;
   private String capital;
 }

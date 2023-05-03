@@ -1,11 +1,11 @@
 package com.edu.wlopezob.appcomisariav1.application.ports.out.comisaria;
 
 import com.edu.wlopezob.appcomisariav1.dominio.Comisaria.Comisaria;
-import com.edu.wlopezob.appcomisariav1.dominio.departamento.Departamento;
+import reactor.core.publisher.Flux;
 
 import java.util.List;
 
 @FunctionalInterface
 public interface ComisariaInsertAllPort {
-  List<Comisaria> insertAllComisaria(List<Comisaria> comisarias);
+  Flux<Comisaria> insertAllComisaria(List<Comisaria> comisarias);
 }

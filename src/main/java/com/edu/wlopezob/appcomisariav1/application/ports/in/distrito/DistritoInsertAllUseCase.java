@@ -8,5 +8,5 @@ import java.util.List;
 
 @FunctionalInterface
 public interface DistritoInsertAllUseCase {
-  Flux<Distrito> insertAllDistrito(List<Distrito> distritos);
+  Flux<Distrito> insertAllDistrito();
 }

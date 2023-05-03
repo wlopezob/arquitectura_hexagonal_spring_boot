@@ -7,11 +7,17 @@ import com.edu.wlopezob.appcomisariav1.application.ports.out.provincia.Provinica
 import com.edu.wlopezob.appcomisariav1.application.ports.out.provincia.ProvinicaInsertAllPort;
 import com.edu.wlopezob.appcomisariav1.dominio.provincia.Provincia;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
+@Service
 public class ProvinciaService implements ProvinciaInsertAllUseCase {
   private final ProvinciaGetAllCallApiPort provinciaGetAllCallApiPort;
   private final ProvinicaDeleteAllPort provinicaDeleteAllPort;
@@ -19,16 +25,10 @@ public class ProvinciaService implements ProvinciaInsertAllUseCase {
   private final ProvinicaInsertAllPort provinicaInsertAllPort;
 
   @Override
-  public Flux<Provincia> insertAllProvincia(List<Provincia> provincias) {
-    // delete provincias
-    provinicaDeleteAllPort.deleteAllProvincia();
-
-    // get all departamento db
-    return departamentoGetAllPort.getAllDepartamento()
-      .flatMap(dpto -> provinciaGetAllCallApiPort.getAllProvincia(dpto.getIdDpto()))
-      .collectList().flux()
-      .flatMap(provinicaInsertAllPort::insertAllProvincia);
-
-
+  public Flux<Provincia> insertAllProvincia() {
+    return provinicaDeleteAllPort.deleteAllProvincia().flux()
+      .flatMap(b -> departamentoGetAllPort.getAllDepartamento().flatMapIterable(t -> t)
+        .flatMap(dpto -> provinciaGetAllCallApiPort.getAllProvincia(dpto.getIdDpto())
+          .flatMap(list -> provinicaInsertAllPort.insertAllProvincia(list))).flatMapIterable(t -> t));
   }
 }

@@ -4,5 +4,5 @@ import reactor.core.publisher.Mono;
 
 @FunctionalInterface
 public interface DepartamentoDeleteAllPort {
-  Mono<Void> deleteAllDepartamento();
+  Mono<Boolean> deleteAllDepartamento();
 }

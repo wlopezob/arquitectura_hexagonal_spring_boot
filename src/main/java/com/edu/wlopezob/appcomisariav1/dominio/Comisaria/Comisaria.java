@@ -16,10 +16,6 @@ public class Comisaria {
   private String idDist;
   private String distrito;
   private String comisaria;
+  private String zonaUtm;
   private String categoria;
-  private String macroregpol;
-  private String regionpol;
-  private String resolucion;
-  private String x;
-  private String y;
 }
